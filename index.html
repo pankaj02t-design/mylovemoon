@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Day Surprise 🌹</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffdee9, #b5fffc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 420px;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: fade 0.5s ease;
+  }
+
+  h2 { margin-top: 0; }
+  p { font-size: 15px; line-height: 1.5; }
+
+  .btns { margin-top: 20px; }
+
+  button {
+    border: none;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .accept { background: #ff4d6d; color: white; }
+  .reject { background: #ddd; }
+
+  .reaction { margin-top: 15px; font-size: 14px; }
+
+  @keyframes fade {
+    from {opacity: 0; transform: scale(0.95);}
+    to {opacity: 1; transform: scale(1);}
+  }
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 ONLINE SOUNDS (REPLIT FRIENDLY) -->
+<audio id="acceptSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_6f1d9e9b0f.mp3"></audio>
+<audio id="rejectSound" src="https://cdn.pixabay.com/audio/2022/10/06/audio_946b0a0c88.mp3"></audio>
+<audio id="finalSound" src="https://cdn.pixabay.com/audio/2022/08/02/audio_4c32a9bcb3.mp3"></audio>
+
+<div class="card" id="card"></div>
+
+<script>
+let slide = 0;
+
+const slides = [
+  {
+    title: "🌙 Breaking News 🚨",
+    text: `Due to over-demand 🌹<br>
+           One special <b>Moon 🌙</b><br><br>
+           <b>Roses = OUT OF STOCK ❌</b>`,
+    accept: "🌙🌹 Moonlight Rose unlocked",
+    reject: "😭 Moon pleaseeee… chand bhi sharma gaya"
+  },
+  {
+    title: "🧛 Approved Alternatives",
+    text: `Choose wisely, Vampire 😌<br><br>
+           ❌ Normal rose<br>
+           ❌ Expensive rose<br>
+           ✅ <b>Me + patience + loyalty</b>`,
+    accept: "🧛🌹 Immortal black rose for Vampire",
+    reject: "😭 Vampire ji… dil ka khoon kar diya"
+  },
+  {
+    title: "🧸 Doraemon Mode ON",
+    text: `<b>Doraemon's Terms & Conditions</b><br><br>
+           ✔️ Goals come first 🚀<br>
+           ✔️ Focus > flowers 🌱<br>
+           ✔️ No distractions ❌<br>
+           ✔️ Roses postponed, not cancelled 🌹`,
+    accept: "🧸📚 Rose saved for later. Dreams first 💙",
+    reject: "😭 Doraemon… future ke terms bhi reject?"
+  },
+  {
+    title: "✨ Jokes Aside…",
+    text: `Some roses last a day 🌹<br>
+           Some people last through seasons 🌱<br><br>
+           Nova ✨ I'll quietly stand beside you
+           while you build your universe 💫`,
+    accept: "✨🌹 Aesthetic rose for Nova",
+    reject: "😭 Nova… stars bhi aaj dim lag rahe"
+  },
+  {
+    title: "🌱 Future Reserved Rose™",
+    text: `❌ Real flowers — not today<br>
+           ✅ Her goals — always first 🚀<br><br>
+           🌹 <b>Future Reserved Rose™</b><br>
+           🔒 Unlocks after goals achieved<br><br>
+           Rose loading… ███░░░░░░ 30%`,
+    accept: "🎁🌹 Reserved rose accepted",
+    reject: "😭 Madam ji… efforts dekh lo yaar"
+  }
+];
+
+function playSound(id) {
+  const s = document.getElementById(id);
+  s.currentTime = 0;
+  s.play();
+}
+
+function renderSlide() {
+  const s = slides[slide];
+  document.getElementById("card").innerHTML = `
+    <h2>${s.title}</h2>
+    <p>${s.text}</p>
+    <div class="btns">
+      <button class="accept" onclick="accept()">Accept 😌</button>
+      <button class="reject" onclick="reject()">Reject 😏</button>
+    </div>
+    <div class="reaction" id="reaction"></div>
+  `;
+}
+
+function accept() {
+  playSound("acceptSound");
+  document.getElementById("reaction").innerHTML = slides[slide].accept;
+
+  setTimeout(() => {
+    slide++;
+    if (slide < slides.length) {
+      renderSlide();
+    } else {
+      playSound("finalSound");
+      document.getElementById("card").innerHTML = `
+        <h2>🌹 Final Message</h2>
+        <p>
+          I didn't bring flowers today,<br>
+          because I believe in the girl<br>
+          who chose her future over petals 🌱💙<br><br>
+          <b>Roses can wait.</b>
+        </p>
+      `;
+    }
+  }, 1200);
+}
+
+function reject() {
+  playSound("rejectSound");
+  document.getElementById("reaction").innerHTML = slides[slide].reject;
+}
+
+renderSlide();
+</script>
+
+</body>
+</html>
